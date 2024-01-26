@@ -1,0 +1,413 @@
+# @khulnasoft/blob
+
+## 0.19.0
+
+### Minor Changes
+
+- d44bd3b: feat(blob): add retry to all blob requests
+
+  This change generalizes the way we request the internal Blob API. This moves api version, authorization, response validation and error handling all into one place.
+  Also this adds a retry mechanism to the API requests
+
+## 0.18.0
+
+### Minor Changes
+
+- dc7ba0e: feat(blob): allow inline content disposition for certain blobs
+
+  Once you use this new version, then most common medias won't be automatically
+  downloading but rather will display the content inline.
+
+  Already uploaded files will not change their behavior.
+  You can reupload them if you want to change their behavior.
+
+  Fixes #509
+
+## 0.17.1
+
+### Patch Changes
+
+- d4c06b0: chore(blob): fix types on client.put
+
+## 0.17.0
+
+### Minor Changes
+
+- 898c14a: feat(blob): Add multipart option to reliably upload medium and large files
+
+  It turns out, uploading large files using Khulnasoft Blob has been a struggle for users.
+  Before this change, file uploads were limited to around 200MB for technical reasons.
+  Before this change, even uploading a file of 100MB could fail for various reasons (network being one of them).
+
+  To solve this for good, we're introducting a new option to `put` and `upload` calls: `multipart: true`. This new option will make sure your file is uploaded parts by parts to Khulnasoft Blob, and when some parts are failing, we will retry them. This option is available for server and client uploads.
+
+  Usage:
+
+  ```ts
+  const blob = await put('file.png', file, {
+    access: 'public',
+    multipart: true, // `false` by default
+  });
+
+  // and:
+  const blob = await upload('file.png', file, {
+    access: 'public',
+    handleUploadUrl: '/api/upload',
+    multipart: true,
+  });
+  ```
+
+  If your `file` is a Node.js stream or a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) then we will gradually read and upload it without blowing out your server or browser memory.
+
+  More examples:
+
+  ```ts
+  import { createReadStream } from 'node:fs';
+
+  const blob = await khulnasoftBlob.put(
+    'elon.mp4',
+    // this works 👍, it will gradually read the file from the system and upload it
+    createReadStream('/users/Elon/me.mp4'),
+    { access: 'public', multipart: true },
+  );
+  ```
+
+  ```ts
+  const response = await fetch(
+    'https://example-files.online-convert.com/video/mp4/example_big.mp4',
+  );
+
+  const blob = await khulnasoftBlob.put(
+    'example_big.mp4',
+    // this works too 👍, it will gradually read the file from internet and upload it
+    response.body,
+    { access: 'public', multipart: true },
+  );
+  ```
+
+### Patch Changes
+
+- fd1781f: feat(blob): allow folder creation
+
+  This allows the creation of empty folders in the blob store. Before this change the SDK would always require a body, which is prohibited by the API.
+  Now the the SDK validates if the operation is a folder creation by checking if the pathname ends with a trailling slash.
+
+  ```ts
+  const blob = await khulnasoftBlob.put('folder/', {
+    access: 'public',
+    addRandomSuffix: false,
+  });
+  ```
+
+## 0.16.1
+
+### Patch Changes
+
+- ae0ba27: Ensure fetch is bound to globalThis
+- 5624237: fix(deps): Change `jest-environment-jsdom` to a devDependency.
+
+## 0.16.0
+
+### Minor Changes
+
+- 26a2acb: feat(blob): throw specific error when service unavailable
+
+## 0.15.1
+
+### Patch Changes
+
+- f9c4061: fix(blob): Enforce content-type on fetch requests during token generation
+
+  Before this change, we would not send the content-type header on fetch requests sent to your server during client uploads. We consider this a bugfix as it should have been sent before.
+
+  ⚠️ If you upgrade to this version, and you're using any smart request body parser (like Next.js Pages API routes) then: You need to remove any `JSON.parse(request.body)` at the `handleUpload` step, as the body will be JSON by default now. This is valid for the `onBeforeGenerateToken` and `onUploadCompleted` steps.
+
+## 0.15.0
+
+### Minor Changes
+
+- d57df99: Adds a new `mode: folded | expanded (default)` parameter to the list command options. When you pass `folded` to `mode`, then we automatically fold all files belonging to the same folder into a single folder entry. This allows you to build file browsers using the Khulnasoft Blob API.
+
+## 0.14.1
+
+### Patch Changes
+
+- 0e9fc17: Exports the ListBlobResultBlob so it can be imported from the @khulnasoft/blob package.
+- 41c4483: This introduces jsdoc comments for all functions that are publicly accessible in the @khulnasoft/blob npm package.
+
+## 0.14.0
+
+### Minor Changes
+
+- 9a6c44f: Add copy method to @khulnasoft/blob package. This method offers the functionality to copy an existing blob file to a new path inside the blob store. #419
+
+## 0.13.1
+
+### Patch Changes
+
+- 15de089: fix(deps): update dependency undici to v5.26.2 [security]
+
+## 0.13.0
+
+### Minor Changes
+
+- 3cf97b1: This new version brings consistent and detailed errors about request failures (store does not exist, blob does not exist, store is suspended...).
+  BREAKING CHANGE: head() will now throw instead of returning null when the blob does not exist.
+
+## 0.12.5
+
+### Patch Changes
+
+- f033492: Handle relative urls in upload()'s callbackUrl #399
+
+## 0.12.4
+
+### Patch Changes
+
+- d90e973: Removed `"types"` field from package.json to support `"moduleResolution": "Node16"`
+
+## 0.12.3
+
+### Patch Changes
+
+- c0fe4e7: khulnasoftBlob.head() now sends a `cacheControl` property
+
+## 0.12.2
+
+### Patch Changes
+
+- 15f7eef: Fix types for old module resolution. Before this commit types for the main package would be imported with a dot in the import path on autocompletion.
+
+## 0.12.1
+
+### Patch Changes
+
+- ae93246: Fix `Cannot find module '@khulnasoft/blob/client' errors for JavaScript projects or TypeScript projects with an old moduleResolution setting.
+
+## 0.12.0
+
+### Minor Changes
+
+- 8251462: This release introduces BREAKING CHANGES. Mostly, we've separated client and server needs better. While ensuring we only export what we currently think is useful to you.
+
+  We have a completely new documentation about client (browser) uploads: https://khulnasoft.com/docs/storage/khulnasoft-blob/quickstart#client-uploads.
+
+  We've moved and renamed client-related utilities, including the ones to generate client tokens, to a separate entry file: `@khulnasoft/blob/client`. Use it this way:
+
+  ```ts
+  import {
+    upload,
+    handleUpload,
+    generateClientTokenFromReadWriteToken,
+  } from '@khulnasoft/blob/client';
+  ```
+
+  Here are the new features:
+
+  - You can now pass a `clientPayload?: string` option during client uploads via the `upload` method. This payload can be used to attach metadata to your file, for example when updating a blog post cover image, you may want to pass: `clientPayload: JSON.stringify({ postId: 123 })`, so you can then use it server side to update the blog post.
+
+  Here are the BREAKING CHANGES:
+
+  - `handleBlobUpload` has moved to client/`handleUpload`
+  - For client (browser) uploads, please use client/`upload` instead of `put`. Also, the `handleBlobUploadUrl` option has been renamed to `handleUploadUrl`.
+  - `verifyCallbackSignature` is no more exported if you think you need it, open an issue
+  - `BlobCommandOptions` type is no longer exported. This is an internal utility type. Other internal types were removed also but nobody was using them
+  - `metadata` in `onBeforeGenerateToken` and `onUploadCompleted` has been renamed to `tokenPayload`
+
+  Enjoy!
+
+## 0.11.0
+
+### Minor Changes
+
+- b409aad: We added two new options on `put()`:
+
+  - `addRandomSuffix: boolean`: Allows to disable or enable (default) random
+    suffixes added to file paths
+  - `cacheControlMaxAge: number`: Allows to configure the browser and edge cache,
+    in seconds. Default to one year (browser) and 5 minutes (edge). The edge cache
+    is currently always set to a maximum of 5 minutes. But can be lowered to 0
+
+## 0.10.0
+
+### Minor Changes
+
+- e273673: BREAKING CHANGE: Some methods responses and types have been updated following a
+  migration Khulnasoft did to make Khulnasoft Blob more robust and closer to the S3 API.
+
+  Namely:
+
+  - the urls generated by Khulnasoft Blob have moved from:
+    `public.blob.khulnasoft-storage.com/zyzoioy8txfs14xe/somefile-NoOVGDVcqSPc7VYCUAGnTzLTG2qEM2.txt`
+    to
+    `zyzoioy8txfs14xe.blob.khulnasoft-storage.com/somefile-NoOVGDVcqSPc7VYCUAGnTzLTG2qEM2.txt`
+    This change has been done transparently: all previous blob urls are
+    redirected to the new domain.
+  - `.put()` no more sends back size and uploadedAt, use .head() to get this
+    information. Refer to the PutBlobResult type.
+  - `.list()` no more sends back contentType and contentDisposition on the
+    blobs property. Refer to the ListBlobResult type.
+  - `.del()` doesn't return any value (void). If the file was here prior to
+    a del() call, then it's now deleted.
+  - `BlobResult` type has been splitted to `PutBlobResult` for put() and
+    `HeadBlobResult` for head(). Use them accordingly.
+
+  We've reworked our README to better surface the browser-upload and
+  server-upload methods.
+
+## 0.9.3
+
+### Patch Changes
+
+- 978a817: Added an API version string when activated, related to multi bucket migration, no need to update for now.
+
+## 0.9.2
+
+### Patch Changes
+
+- ce4b585: Add handleBlobUpload wrapper
+
+## 0.9.1
+
+### Patch Changes
+
+- 08caff4: expose validUntil field
+
+## 0.9.0
+
+### Minor Changes
+
+- 28ba58d: Implement Client Upload
+
+## 0.8.3
+
+### Patch Changes
+
+- e976847: Align license to Apache 2.0 and fix urls in package.json
+
+## 0.8.2
+
+### Patch Changes
+
+- 04e175d: fix response updateAt format
+
+## 0.8.1
+
+### Patch Changes
+
+- Add missing url in blob type
+
+## 0.8.0
+
+### Minor Changes
+
+- feat(API): Cleanup API responses
+
+## 0.7.0
+
+### Minor Changes
+
+- 543a52e: restore list
+
+## 0.6.3
+
+### Patch Changes
+
+- 5059992: remove list
+
+## 0.6.2
+
+### Patch Changes
+
+- afa1e7a: send content-type
+
+## 0.6.1
+
+### Patch Changes
+
+- fix khulnasoftBlob.del to send back a single object or array when relevant to input
+
+## 0.6.0
+
+### Minor Changes
+
+- del will now send back `HeadBlobResult | (HeadBlobResult | null)[] | null` based on how it's used and which blobs were deleted or not
+
+## 0.5.0
+
+### Minor Changes
+
+- 45fd785: Implement bulk delete
+
+## 0.4.0
+
+### Minor Changes
+
+- Add error handling
+
+## 0.3.2
+
+### Patch Changes
+
+- Handle access denied deletions
+
+## 0.3.1
+
+### Patch Changes
+
+- Release again
+
+## 0.3.0
+
+### Minor Changes
+
+- e29855d: add blob list
+
+## 0.2.6
+
+### Patch Changes
+
+- 5f6fe14: Test new release
+
+## 0.2.5
+
+### Patch Changes
+
+- Test changeset in monorepo
+
+## 0.2.4
+
+### Patch Changes
+
+- 39b15f2: Move from BLOB_STORE_WRITE_TOKEN to BLOB_READ_WRITE_TOKEN
+
+## 0.2.1
+
+### Patch Changes
+
+- 969ef14: Fix filename computation
+
+## 0.2.0
+
+### Minor Changes
+
+- a0f5d03: Added new methods
+
+## 0.1.3
+
+### Patch Changes
+
+- e7e259e: Test releasing
+
+## 0.1.0
+
+### Minor Changes
+
+- 33b712b: First "version"
+
+## 0.0.2
+
+### Patch Changes
+
+- d1ec473: Testing changeset
+- c33db99: Testing publish
