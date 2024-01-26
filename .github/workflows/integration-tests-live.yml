@@ -44,11 +44,11 @@ jobs:
       # Using ./test/next... is mandatory so we are not subject to playwright surprise updates
       - run: ./test/next/node_modules/.bin/playwright install --with-deps
 
-      # https://github.com/patrickedqvist/wait-for-khulnasoft-preview
+      # https://github.com/khulnasoft-lab/wait-for-khulnasoft-preview
       # this allows to use action cache, which is not possible when using deployment_status otherwise
       # see https://github.com/actions/cache/issues/319
       - name: Wait for Khulnasoft Preview
-        uses: patrickedqvist/wait-for-khulnasoft-preview@v1.3.1
+        uses: khulnasoft-lab/wait-for-khulnasoft-preview@v1.3.1
         id: waitForKhulnasoftPreview
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
