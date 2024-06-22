@@ -50,11 +50,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            supabase/storage-api
-            public.ecr.aws/supabase/storage-api
+            khulnasoft/storage-api
+            public.ecr.aws/khulnasoft/storage-api
             436098097459.dkr.ecr.us-east-1.amazonaws.com/storage-api
             646182064048.dkr.ecr.us-east-1.amazonaws.com/storage-api
-            ghcr.io/supabase/storage-api
+            ghcr.io/khulnasoft/storage-api
           tags: |
             type=raw,value=v${{ needs.release.outputs.version }}
 

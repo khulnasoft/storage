@@ -28,8 +28,8 @@ const build = (opts: buildOpts = {}): FastifyInstance => {
     app.register(fastifySwagger, {
       openapi: {
         info: {
-          title: 'Supabase Storage API',
-          description: 'API documentation for Supabase Storage',
+          title: 'Khulnasoft Storage API',
+          description: 'API documentation for Khulnasoft Storage',
           version: '0.0.1',
         },
         tags: [

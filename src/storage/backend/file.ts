@@ -27,14 +27,14 @@ interface FileMetadata {
 // file metadata attribute keys on different platforms
 const METADATA_ATTR_KEYS = {
   darwin: {
-    'cache-control': 'com.apple.metadata.supabase.cache-control',
-    'content-type': 'com.apple.metadata.supabase.content-type',
-    etag: 'com.apple.metadata.supabase.etag',
+    'cache-control': 'com.apple.metadata.khulnasoft.cache-control',
+    'content-type': 'com.apple.metadata.khulnasoft.content-type',
+    etag: 'com.apple.metadata.khulnasoft.etag',
   },
   linux: {
-    'cache-control': 'user.supabase.cache-control',
-    'content-type': 'user.supabase.content-type',
-    etag: 'user.supabase.content-type',
+    'cache-control': 'user.khulnasoft.cache-control',
+    'content-type': 'user.khulnasoft.content-type',
+    etag: 'user.khulnasoft.content-type',
   },
 }
 

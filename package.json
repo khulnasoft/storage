@@ -1,7 +1,7 @@
 {
   "name": "supa-storage",
   "version": "0.9.5",
-  "description": "Supabase storage middleend",
+  "description": "Khulnasoft storage middleend",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch ./src/server.ts | pino-pretty",
@@ -19,7 +19,7 @@
     "infra:start": "docker compose --project-directory . -f ./.docker/docker-compose-infra.yml up -d && sleep 5 && npm run migration:run",
     "infra:restart": "npm run infra:stop && npm run infra:start"
   },
-  "author": "Supabase",
+  "author": "Khulnasoft",
   "license": "ISC",
   "engines": {
     "node": ">= 14.0.0"

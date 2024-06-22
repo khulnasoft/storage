@@ -37,7 +37,7 @@ beforeAll(async () => {
 beforeEach(() => {
   mergeConfig({
     isMultitenant: true,
-    requestXForwardedHostRegExp: '^([a-z]{20})\\.supabase\\.(?:co|in|net)$',
+    requestXForwardedHostRegExp: '^([a-z]{20})\\.khulnasoft\\.(?:co|in|net)$',
   })
 })
 
@@ -69,7 +69,7 @@ describe('with X-Forwarded-Host header', () => {
       url: `/bucket`,
       headers: {
         authorization: `Bearer ${process.env.AUTHENTICATED_KEY}`,
-        'x-forwarded-host': 'abcdefghijklmnopqrst.supabase.co',
+        'x-forwarded-host': 'abcdefghijklmnopqrst.khulnasoft.co',
       },
     })
     expect(response.statusCode).toBe(200)
@@ -101,7 +101,7 @@ describe('with X-Forwarded-Host header', () => {
       url: `/bucket`,
       headers: {
         authorization: `Bearer ${process.env.AUTHENTICATED_KEY}`,
-        'x-forwarded-host': 'abcdefghijklmnopqrst.supabase.com',
+        'x-forwarded-host': 'abcdefghijklmnopqrst.khulnasoft.com',
       },
     })
     expect(response.statusCode).toBe(400)

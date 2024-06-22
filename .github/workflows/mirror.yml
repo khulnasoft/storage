@@ -31,10 +31,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: akhilerm/tag-push-action@v2.1.0
         with:
-          src: docker.io/supabase/storage-api:${{ inputs.version }}
+          src: docker.io/khulnasoft/storage-api:${{ inputs.version }}
           dst: |
-            public.ecr.aws/supabase/storage-api:${{ inputs.version }}
-            public.ecr.aws/supabase/storage-api:latest
-            docker.io/supabase/storage-api:latest
-            ghcr.io/supabase/storage-api:${{ inputs.version }}
-            ghcr.io/supabase/storage-api:latest
+            public.ecr.aws/khulnasoft/storage-api:${{ inputs.version }}
+            public.ecr.aws/khulnasoft/storage-api:latest
+            docker.io/khulnasoft/storage-api:latest
+            ghcr.io/khulnasoft/storage-api:${{ inputs.version }}
+            ghcr.io/khulnasoft/storage-api:latest

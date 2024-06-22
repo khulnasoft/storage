@@ -339,7 +339,7 @@ export async function createS3Credentials(
   data.claims = {
     ...(data.claims || {}),
     role: data.claims?.role ?? dbServiceRole,
-    issuer: `supabase.storage.${tenantId}`,
+    issuer: `khulnasoft.storage.${tenantId}`,
     sub: data.claims?.sub,
   }
 

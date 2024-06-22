@@ -679,7 +679,7 @@ export class S3ProtocolHandler {
       command.Key.endsWith('/') &&
       (command.ContentLength === undefined || command.ContentLength === 0)
     ) {
-      // Consistent with how supabase Storage handles empty folders
+      // Consistent with how khulnasoft Storage handles empty folders
       command.Key += '.emptyFolderPlaceholder'
     }
 

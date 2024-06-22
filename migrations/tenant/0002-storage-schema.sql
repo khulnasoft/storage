@@ -146,7 +146,7 @@ $function$;
 DO $$
 DECLARE
     install_roles text = COALESCE(current_setting('storage.install_roles', true), 'true');
-    super_user text = COALESCE(current_setting('storage.super_user', true), 'supabase_storage_admin');
+    super_user text = COALESCE(current_setting('storage.super_user', true), 'khulnasoft_storage_admin');
 BEGIN
     IF install_roles != 'true' THEN
         RETURN;

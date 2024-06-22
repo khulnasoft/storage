@@ -6,7 +6,7 @@ on:
 
 env:
   service_to_update: 'storage-api'
-  cli_repo_owner: supabase
+  cli_repo_owner: khulnasoft
   cli_repo: cli
   cli_repo_main_branch: 'main'
   cli_repo_pr_title: 'fix(storage): update storage image version to '

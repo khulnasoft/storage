@@ -1,10 +1,10 @@
-# Supabase Storage Engine
+# Khulnasoft Storage Engine
 
-[![Coverage Status](https://coveralls.io/repos/github/supabase/storage-api/badge.svg?branch=master)](https://coveralls.io/github/supabase/storage-api?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/khulnasoft/storage-api/badge.svg?branch=master)](https://coveralls.io/github/khulnasoft/storage-api?branch=master)
 
 A scalable, light-weight object storage service.
 
-> Read [this post](https://supabase.io/blog/2021/03/30/supabase-storage) on why we decided to build a new object storage service.
+> Read [this post](https://khulnasoft.io/blog/2021/03/30/khulnasoft-storage) on why we decided to build a new object storage service.
 
 - Multi-protocol support (HTTP, TUS, S3)
 - Uses Postgres as its datastore for storing metadata
@@ -23,9 +23,9 @@ A scalable, light-weight object storage service.
 
 ## Documentation
 
-- [OpenAPI Spec](https://supabase.github.io/storage)
-- [Storage Guides](https://supabase.io/docs/guides/storage)
-- [Client library](https://supabase.io/docs/reference/javascript/storage-createbucket)
+- [OpenAPI Spec](https://khulnasoft.github.io/storage)
+- [Storage Guides](https://khulnasoft.io/docs/guides/storage)
+- [Client library](https://khulnasoft.io/docs/reference/javascript/storage-createbucket)
 
 ## Development
 
