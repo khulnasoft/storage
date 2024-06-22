@@ -4,7 +4,7 @@
 
 A scalable, light-weight object storage service.
 
-> Read [this post](https://khulnasoft.io/blog/2021/03/30/khulnasoft-storage) on why we decided to build a new object storage service.
+> Read [this post](https://khulnasoft.com/blog/2021/03/30/khulnasoft-storage) on why we decided to build a new object storage service.
 
 - Multi-protocol support (HTTP, TUS, S3)
 - Uses Postgres as its datastore for storing metadata
@@ -24,8 +24,8 @@ A scalable, light-weight object storage service.
 ## Documentation
 
 - [OpenAPI Spec](https://khulnasoft.github.io/storage)
-- [Storage Guides](https://khulnasoft.io/docs/guides/storage)
-- [Client library](https://khulnasoft.io/docs/reference/javascript/storage-createbucket)
+- [Storage Guides](https://khulnasoft.com/docs/guides/storage)
+- [Client library](https://khulnasoft.com/docs/reference/javascript/storage-createbucket)
 
 ## Development
 

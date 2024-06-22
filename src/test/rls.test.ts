@@ -107,7 +107,7 @@ describe('RLS policies', () => {
       id: userId,
       aud: 'authenticated',
       role: 'authenticated',
-      email: userId + '@khulnasoft.io',
+      email: userId + '@khulnasoft.com',
     })
 
     const adminUser = await getServiceKeyUser(tenantId)
