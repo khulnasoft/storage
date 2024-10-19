@@ -1,3 +1,7 @@
+dist
 node_modules
-package-lock.json
-src/test/db/docker-compose.yml
+pnpm-lock.yaml
+.next
+.vercel
+.vscode
+.changeset

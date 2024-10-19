@@ -1,71 +1,7 @@
-# Khulnasoft Storage Engine
+# [Vercel Storage](https://vercel.com/docs/storage)
 
-[![Coverage Status](https://coveralls.io/repos/github/khulnasoft/storage-api/badge.svg?branch=master)](https://coveralls.io/github/khulnasoft/storage-api?branch=master)
-
-A scalable, light-weight object storage service.
-
-> Read [this post](https://khulnasoft.com/blog/2021/03/30/khulnasoft-storage) on why we decided to build a new object storage service.
-
-- Multi-protocol support (HTTP, TUS, S3)
-- Uses Postgres as its datastore for storing metadata
-- Authorization rules are written as Postgres Row Level Security policies
-- Integrates with S3 Compatible Storages
-- Extremely lightweight and performant
-
-
-**Supported Protocols**
-
-- [x] HTTP/REST
-- [x] TUS Resumable Upload
-- [x] S3 Compatible API
-
-![Architecture](./static/architecture.png?raw=true 'Architecture')
-
-## Documentation
-
-- [OpenAPI Spec](https://khulnasoft.github.io/storage)
-- [Storage Guides](https://khulnasoft.com/docs/guides/storage)
-- [Client library](https://khulnasoft.com/docs/reference/javascript/storage-createbucket)
-
-## Development
-
-- Copy `.env.sample` to `.env` file.
-- Copy `.env.test.sample` to `.env.test`.
-
-```bash
-cp .env.sample .env && cp .env.test.sample .env.test
-````
-
-**Your root directory should now have both `.env` and `.env.test` files.**
-
-- Then run the following:
-
-```bash
-# this sets up a postgres database and postgrest locally via docker
-npm run infra:restart
-# Start the storage server
-npm run dev
-```
-
-The server should now be running at http://localhost:5000/
-
-The following request should insert and return the list of buckets.
-
-```bash
-# insert a bucket named avatars
-curl --location --request POST 'http://localhost:5000/bucket' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjEzNTMxOTg1LCJleHAiOjE5MjkxMDc5ODV9.th84OKK0Iz8QchDyXZRrojmKSEZ-OuitQm_5DvLiSIc' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "avatars"
-}'
-
-# get buckets
-curl --location --request GET 'http://localhost:5000/bucket' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjEzNTMxOTg1LCJleHAiOjE5MjkxMDc5ODV9.th84OKK0Iz8QchDyXZRrojmKSEZ-OuitQm_5DvLiSIc'
-```
-
-### Testing
-
-To perform your tests you can run the following command: `npm test`
-
+- `@khulnasoft/postgres` Vercel Postgres database client — [Documentation](https://vercel.com/docs/storage/vercel-postgres) | [Source](./packages/postgres)
+- `@khulnasoft/kv` Durable Redis-compatible Key Value store — [Documentation](https://vercel.com/docs/storage/vercel-kv) | [Source](./packages/kv)
+- `@khulnasoft/edge-config` Ultra-low latency data at the edge — [Documentation](https://vercel.com/docs/storage/edge-config) | [Source](./packages/edge-config)
+- `@khulnasoft/blob` Fast object storage — [Documentation](https://vercel.com/docs/storage/vercel-blob) | [Source](./packages/blob)
+- `@khulnasoft/postgres-kysely` A `@khulnasoft/postgres` wrapper for the [kysely ORM](https://github.com/kysely-org/kysely) — [Documentation](./packages/postgres-kysely) | [Source](./packages/postgres-kysely)

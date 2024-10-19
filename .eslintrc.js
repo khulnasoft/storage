@@ -1,9 +1,13 @@
+const { resolve } = require('node:path');
+
 module.exports = {
-  ignorePatterns: ['src/test/assets/**', 'src/test/db/**', 'src/test/*.yaml'],
-  parser: '@typescript-eslint/parser',
-  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  root: true,
+  // This tells ESLint to load the config from the package `eslint-config-custom`
+  extends: ['custom'],
   parserOptions: {
-    ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module', // Allows for the use of imports
+    project: [
+      resolve(__dirname, './packages/*/tsconfig.json'),
+      resolve(__dirname, './tooling/*/tsconfig.json'),
+    ],
   },
-}
+};
