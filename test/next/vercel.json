@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd ../.. && pnpm build:all && cd test/next && pnpm build",
+  "installCommand": "cd ../.. && pnpm install",
+  "framework": null
+}
