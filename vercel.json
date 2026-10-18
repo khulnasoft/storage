@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm build:all && cd test/next && pnpm build",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "outputDirectory": "test/next/.next"
+}

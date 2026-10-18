@@ -355,6 +355,11 @@ export function uploadAllParts({
         if (doneReading) {
           if (activeUploads === 0) {
             reader.releaseLock();
+            // Emit final progress event if we were tracking progress
+            if (options.onUploadProgress && onUploadProgress) {
+              // Trigger final event to ensure 100% is emitted
+              onUploadProgress();
+            }
             resolve(completedParts);
           }
           return;

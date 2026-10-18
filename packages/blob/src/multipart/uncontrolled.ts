@@ -55,6 +55,13 @@ export async function uncontrolledMultipartUpload(
   // changes:
   // stream => set percentage to 0% even if loaded/total is valid
   // stream => send onUploadProgress 100% at the end of the request here
+  if (options.onUploadProgress) {
+    options.onUploadProgress({
+      loaded: totalToLoad,
+      total: totalToLoad,
+      percentage: 100,
+    });
+  }
 
   return blob;
 }
