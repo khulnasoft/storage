@@ -10,6 +10,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "turbo build",
+    "build:all": "turbo build --filter=!khulnasoft-storage-integration-test-suite",
     "integration-test": "turbo integration-test",
     "lint": "turbo lint -- --max-warnings=0",
     "prepare": "husky",

@@ -1,6 +1,8 @@
 import { queryUsers } from '@/lib/postgres-client';
 
 export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function Page(): Promise<React.JSX.Element> {
   const users = await queryUsers();

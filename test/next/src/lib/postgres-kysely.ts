@@ -22,7 +22,6 @@ interface UserTable {
 export interface Database {
   users: UserTable;
 }
-export const db = createKysely<Database>();
 
 export const queryUsers = async (): Promise<
   {
@@ -33,6 +32,12 @@ export const queryUsers = async (): Promise<
     createdAt: Date;
   }[]
 > => {
+  // Only create connection if env var is present
+  if (!process.env.POSTGRES_URL) {
+    throw new Error('POSTGRES_URL not configured');
+  }
+
+  const db = createKysely<Database>();
   const timeoutPromise = new Promise<never>((_, reject) =>
     // eslint-disable-next-line no-promise-executor-return -- [@khulnasoft/style-guide@5 migration]
     setTimeout(() => {

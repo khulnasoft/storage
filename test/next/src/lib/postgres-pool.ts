@@ -36,6 +36,11 @@ const queryUsersViaPoolQuery = async (): Promise<QueryResult> => {
 };
 
 export const queryUsers = async (): Promise<QueryResult> => {
+  // Only create connection if env var is present
+  if (!process.env.POSTGRES_URL) {
+    throw new Error('POSTGRES_URL not configured');
+  }
+
   const fromPoolClient = await queryUsersViaPoolClient();
   const fromSql = await queryUsersViaSql();
   const fromQuery = await queryUsersViaPoolQuery();

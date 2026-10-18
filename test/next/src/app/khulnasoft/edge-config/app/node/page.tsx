@@ -1,6 +1,8 @@
 import { get } from '@khulnasoft/edge-config';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function Page(): Promise<React.JSX.Element> {
   const value = await get('keyForTest');

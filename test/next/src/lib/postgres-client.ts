@@ -2,6 +2,11 @@ import type { QueryResult } from '@khulnasoft/postgres';
 import { createClient } from '@khulnasoft/postgres';
 
 export const queryUsers = async (): Promise<QueryResult> => {
+  // Only create connection if env var is present
+  if (!process.env.POSTGRES_URL) {
+    throw new Error('POSTGRES_URL not configured');
+  }
+
   const db = createClient();
   await db.connect();
   const timeoutPromise = new Promise<never>((_, reject) =>
